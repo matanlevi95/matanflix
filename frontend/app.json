@@ -1,0 +1,43 @@
+{
+  "expo": {
+    "name": "Matanflix",
+    "slug": "matanflix",
+    "version": "1.0.0",
+    "orientation": "default",
+    "scheme": "mytv",
+    "userInterfaceStyle": "dark",
+    "backgroundColor": "#141414",
+    "splash": {
+      "backgroundColor": "#141414",
+      "resizeMode": "contain"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "me.hippocampus.mytv"
+    },
+    "android": {
+      "package": "me.hippocampus.mytv",
+      "minSdkVersion": 26,
+      "permissions": ["INTERNET"],
+      "adaptiveIcon": {
+        "backgroundColor": "#141414"
+      }
+    },
+    "plugins": [
+      "expo-av",
+      "expo-screen-orientation",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "minSdkVersion": 26
+          }
+        }
+      ]
+    ],
+    "extra": {
+      "apiBaseUrl": "http://10.0.2.2:8000"
+    }
+  }
+}

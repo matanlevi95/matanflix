@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.db
+backend/.env
+
+# Node / Expo
+node_modules/
+.expo/
+dist/
+web-build/
+*.log
+npm-debug.*
+yarn-error.*
+
+# Native build output
+frontend/android/
+frontend/ios/
+*.apk
+*.aab
+*.keystore
+*.jks
+
+# Misc
+.DS_Store
+.idea/
+.vscode/

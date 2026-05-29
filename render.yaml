@@ -1,0 +1,27 @@
+# One-click deploy to Render.com (free tier).
+# Dashboard -> New -> Blueprint -> point at this repo.
+# Fill the API keys in the Render dashboard after the first deploy.
+services:
+  - type: web
+    name: mytv-backend
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.12.4"
+      - key: TMDB_API_KEY
+        sync: false
+      - key: YOUTUBE_API_KEY
+        sync: false
+      - key: OPENSUBTITLES_API_KEY
+        sync: false
+      - key: METADATA_CACHE_TTL_HOURS
+        value: "24"
+      # Render's free tier has an ephemeral disk; the SQLite file resets on
+      # redeploy. That's fine — it only holds cache + local watchlist.
+      - key: DATABASE_PATH
+        value: "/tmp/mytv.db"

@@ -1,0 +1,37 @@
+services:
+  backend:
+    build: ./backend
+    container_name: mytv-backend
+    ports:
+      - "8000:8000"
+    environment:
+      - TMDB_API_KEY=${TMDB_API_KEY:-}
+      - YOUTUBE_API_KEY=${YOUTUBE_API_KEY:-}
+      - OPENSUBTITLES_API_KEY=${OPENSUBTITLES_API_KEY:-}
+      - METADATA_CACHE_TTL_HOURS=${METADATA_CACHE_TTL_HOURS:-24}
+      - DATABASE_PATH=/data/mytv.db
+    volumes:
+      - mytv-data:/data
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/health')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+
+  # Optional local dev proxy — gives the emulator/device a stable LAN URL.
+  # Enable with:  docker compose --profile dev up
+  proxy:
+    image: nginx:alpine
+    container_name: mytv-proxy
+    profiles: ["dev"]
+    ports:
+      - "8080:80"
+    volumes:
+      - ./infra/nginx.conf:/etc/nginx/conf.d/default.conf:ro
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+volumes:
+  mytv-data:
