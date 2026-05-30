@@ -122,10 +122,12 @@ async def search(query: str, media_type: str = "all") -> list[dict]:
 async def details(media_type: str, tmdb_id: int) -> dict:
     if _demo():
         return demo_data.detail(media_type, tmdb_id)
-    append = "credits,similar,videos,images"
+    append = "credits,similar,videos,images,external_ids"
     data = await _get(f"/{media_type}/{tmdb_id}", {"append_to_response": append})
     if not data:
         return {}
+
+    imdb_id = data.get("imdb_id") or data.get("external_ids", {}).get("imdb_id")
 
     card = normalise_card(data, media_type)
     credits = data.get("credits", {})
@@ -144,6 +146,7 @@ async def details(media_type: str, tmdb_id: int) -> dict:
 
     detail = {
         **card,
+        "imdb_id": imdb_id,
         "genres": [g["name"] for g in data.get("genres", [])],
         "cast": cast,
         "director": director,

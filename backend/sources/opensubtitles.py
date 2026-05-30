@@ -84,7 +84,7 @@ class OpenSubtitlesSource(BaseSource):
             return None
 
     # Not a video source, but satisfy the interface.
-    async def search(self, query, type="all", season=None, episode=None) -> list[VideoResult]:
+    async def search(self, query, type="all", season=None, episode=None, imdb_id=None) -> list[VideoResult]:
         return []
 
     async def get_stream_url(self, video_id: str) -> Optional[str]:

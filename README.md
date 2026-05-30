@@ -6,7 +6,7 @@ A legal media-center app (in the spirit of Plex / Stremio / Kodi) with a **full 
 - **Backend:** Python FastAPI
 - **Database:** SQLite (server-side)
 - **Metadata:** TMDB in Hebrew (`he-IL`), cached 24h
-- **Content:** pluggable *legal* sources — YouTube, Internet Archive, OpenSubtitles
+- **Content:** pluggable *legal* sources — Stremio addons, YouTube, Internet Archive, OpenSubtitles
 - **Streaming is direct** (the device plays the source URL); the server only does metadata, search, and subtitle lookup — it never proxies video.
 
 ```
@@ -47,6 +47,11 @@ uvicorn main:app --reload   # http://localhost:8000  (docs at /docs)
 | `TMDB_API_KEY` | All metadata (Hebrew) | themoviedb.org/settings/api |
 | `YOUTUBE_API_KEY` | YouTube source | console.cloud.google.com |
 | `OPENSUBTITLES_API_KEY` | Hebrew subtitles | opensubtitles.com/consumers |
+| `STREMIO_ADDONS` | Stremio addon URLs (comma-sep) | defaults to Cinemeta |
+
+### Stremio
+
+The Stremio source speaks the open [Stremio Addon Protocol](https://github.com/Stremio/stremio-addon-sdk). By default it searches the official **Cinemeta** catalog (`search in Stremio`). Point `STREMIO_ADDONS` at any stream-capable addon's URL to get playable streams — only direct `http(s)` streams are returned, torrent/magnet links are skipped.
 
 ### Docker
 

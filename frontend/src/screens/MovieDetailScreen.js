@@ -42,6 +42,7 @@ export default function MovieDetailScreen({ route, navigation }) {
     navigation.navigate("Player", {
       media_type: "movie",
       tmdb_id: movie.tmdb_id,
+      imdb_id: movie.imdb_id,
       title: movie.title,
       poster_path: movie.poster_path,
       backdrop_path: movie.backdrop_path,

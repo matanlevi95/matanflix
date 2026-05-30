@@ -47,6 +47,7 @@ class BaseSource:
         type: str = "all",
         season: Optional[int] = None,
         episode: Optional[int] = None,
+        imdb_id: Optional[str] = None,
     ) -> list[VideoResult]:
         raise NotImplementedError
 

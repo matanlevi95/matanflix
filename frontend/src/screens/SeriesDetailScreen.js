@@ -76,6 +76,7 @@ export default function SeriesDetailScreen({ route, navigation }) {
     navigation.navigate("Player", {
       media_type: "tv",
       tmdb_id: series.tmdb_id,
+      imdb_id: series.imdb_id,
       season,
       episode,
       title: `${series.title} - ${name || `פרק ${episode}`}`,

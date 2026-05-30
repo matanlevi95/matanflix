@@ -31,10 +31,10 @@ class SourceRegistry:
     def subtitle_sources(self) -> list[BaseSource]:
         return [s for s in self._sources.values() if s.provides_subtitles]
 
-    async def search_all(self, query, type="all", season=None, episode=None) -> list[dict]:
+    async def search_all(self, query, type="all", season=None, episode=None, imdb_id=None) -> list[dict]:
         async def _run(src: BaseSource):
             try:
-                return await src.search(query, type, season, episode)
+                return await src.search(query, type, season, episode, imdb_id=imdb_id)
             except Exception as e:  # one bad source must not break the rest
                 log.error("Source %s failed: %s", src.name, e)
                 return []

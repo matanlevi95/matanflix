@@ -19,6 +19,8 @@ services:
         sync: false
       - key: OPENSUBTITLES_API_KEY
         sync: false
+      - key: STREMIO_ADDONS
+        value: "https://v3-cinemeta.strem.io"
       - key: METADATA_CACHE_TTL_HOURS
         value: "24"
       # Render's free tier has an ephemeral disk; the SQLite file resets on

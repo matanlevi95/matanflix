@@ -76,11 +76,20 @@ export default function PlayerScreen({ route, navigation }) {
           type: params.media_type,
           season: params.season,
           episode: params.episode,
+          imdb_id: params.imdb_id, // lets Stremio addons resolve playable streams
         });
-        const first = (search.results || [])[0];
-        if (first?.source && first?.video_id) {
-          const r = await api.streamUrl(first.source, first.video_id);
-          if (!cancelled && r.stream_url) setStreamUrl(r.stream_url);
+        // Prefer a result that already carries a direct, playable stream URL
+        // (Stremio / YouTube / Archive); otherwise resolve via the source.
+        const results = search.results || [];
+        const ready = results.find((r) => r.stream_url);
+        if (ready && !cancelled) {
+          setStreamUrl(ready.stream_url);
+        } else {
+          const first = results[0];
+          if (first?.source && first?.video_id) {
+            const r = await api.streamUrl(first.source, first.video_id);
+            if (!cancelled && r.stream_url) setStreamUrl(r.stream_url);
+          }
         }
       } catch {
         /* fall through to fallback */

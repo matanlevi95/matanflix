@@ -10,8 +10,10 @@ The registry instantiates everything listed here at startup.
 from sources.youtube import YouTubeSource
 from sources.archive import ArchiveSource
 from sources.opensubtitles import OpenSubtitlesSource
+from sources.stremio import StremioSource
 
 ENABLED_SOURCES = [
+    StremioSource,
     YouTubeSource,
     ArchiveSource,
     OpenSubtitlesSource,

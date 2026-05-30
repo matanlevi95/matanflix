@@ -23,6 +23,11 @@ class Settings(BaseSettings):
     opensubtitles_api_key: str = ""
     opensubtitles_user_agent: str = "Matanflix v1.0"
 
+    # Stremio addons — comma-separated base/manifest URLs.
+    # Default: official Cinemeta (legal catalog search). Add stream addons to
+    # get playable streams, e.g. "https://v3-cinemeta.strem.io,https://my-addon/manifest.json"
+    stremio_addons: str = "https://v3-cinemeta.strem.io"
+
     # --- Cache ---
     metadata_cache_ttl_hours: int = 24
 
@@ -36,6 +41,10 @@ class Settings(BaseSettings):
     @property
     def cache_ttl_seconds(self) -> int:
         return self.metadata_cache_ttl_hours * 3600
+
+    @property
+    def stremio_addon_list(self) -> list[str]:
+        return [u.strip() for u in self.stremio_addons.split(",") if u.strip()]
 
 
 @lru_cache

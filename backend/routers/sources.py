@@ -12,6 +12,7 @@ class SourceSearchBody(BaseModel):
     type: str = "all"
     season: int | None = None
     episode: int | None = None
+    imdb_id: str | None = None  # enables Stremio stream lookup
 
 
 @router.get("/list")
@@ -23,7 +24,9 @@ async def list_sources():
 @router.post("/search")
 async def search(body: SourceSearchBody):
     reg = get_registry()
-    results = await reg.search_all(body.query, body.type, body.season, body.episode)
+    results = await reg.search_all(
+        body.query, body.type, body.season, body.episode, imdb_id=body.imdb_id
+    )
     return {"count": len(results), "results": results}
 
 

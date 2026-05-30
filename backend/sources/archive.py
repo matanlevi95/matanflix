@@ -19,7 +19,7 @@ DOWNLOAD = "https://archive.org/download"
 class ArchiveSource(BaseSource):
     name = "archive"
 
-    async def search(self, query, type="all", season=None, episode=None) -> list[VideoResult]:
+    async def search(self, query, type="all", season=None, episode=None, imdb_id=None) -> list[VideoResult]:
         q = f'({query}) AND mediatype:(movies)'
         params = {
             "q": q,

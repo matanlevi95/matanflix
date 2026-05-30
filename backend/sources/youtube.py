@@ -19,7 +19,7 @@ API = "https://www.googleapis.com/youtube/v3"
 class YouTubeSource(BaseSource):
     name = "youtube"
 
-    async def search(self, query, type="all", season=None, episode=None) -> list[VideoResult]:
+    async def search(self, query, type="all", season=None, episode=None, imdb_id=None) -> list[VideoResult]:
         if not settings.youtube_api_key:
             log.warning("YOUTUBE_API_KEY missing — skipping YouTube search")
             return []
